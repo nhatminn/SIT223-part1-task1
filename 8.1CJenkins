@@ -1,0 +1,49 @@
+pipeline {
+  agent any
+  triggers { pollSCM('H/5 * * * *') }   // poll every ~5 minutes
+
+  stages {
+    stage('Stage 1: Build') {
+      steps {
+        echo 'Task: Build the code using a build automation tool to compile and package the code.'
+        echo 'Tool: Maven (e.g., mvn clean package)'
+      }
+    }
+    stage('Stage 2: Unit and Integration Tests') {
+      steps {
+        echo 'Task: Run unit tests and integration tests to verify components and their interactions.'
+        echo 'Tools: JUnit / NUnit / pytest for unit; Postman/Newman or Cypress for integration'
+      }
+    }
+    stage('Stage 3: Code Analysis') {
+      steps {
+        echo 'Task: Analyse code quality and standards.'
+        echo 'Tool: SonarQube / SonarCloud'
+      }
+    }
+    stage('Stage 4: Security Scan') {
+      steps {
+        echo 'Task: Scan the code/dependencies for vulnerabilities.'
+        echo 'Tools: npm audit / Snyk / Trivy (SCA)'
+      }
+    }
+    stage('Stage 5: Deploy to Staging') {
+      steps {
+        echo 'Task: Deploy the application to a staging server (e.g., AWS EC2).'
+        echo 'Tool: SSH/Ansible/Terraform/Jenkins SSH steps'
+      }
+    }
+    stage('Stage 6: Integration Tests on Staging') {
+      steps {
+        echo 'Task: Run integration tests against staging (production-like).'
+        echo 'Tools: Newman (Postman CLI) / Cypress'
+      }
+    }
+    stage('Stage 7: Deploy to Production') {
+      steps {
+        echo 'Task: Deploy the application to a production server (e.g., AWS EC2).'
+        echo 'Tool: Ansible/Terraform/Change approval'
+      }
+    }
+  }
+}
